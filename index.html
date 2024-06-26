@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order and Battery Data</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Submit Order and Battery Data</h1>
+  <form id="data-form">
+    <label for="order-no">Order No:</label>
+    <input type="text" id="order-no" name="order-no" required><br><br>
+    <label for="battery-serial-no">Battery Serial No:</label>
+    <input type="text" id="battery-serial-no" name="battery-serial-no" required><br><br>
+    <label for="date-time">Date & Time:</label>
+    <input type="datetime-local" id="date-time" name="date-time" required><br><br>
+    <button type="submit">Submit</button>
+  </form>
+  <script src="script.js"></script>
+</body>
+</html>
