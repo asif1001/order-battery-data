@@ -4,10 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('data-form').addEventListener('submit', async (event) => {
     event.preventDefault();
+    
     const orderNo = document.getElementById('order-no').value;
     const batterySerialNo = document.getElementById('battery-serial-no').value;
     const dateTime = document.getElementById('date-time').value;
-
+    
     const data = {
       orderNo,
       batterySerialNo,
