@@ -1,21 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
   const dateTimeInput = document.getElementById('date-time');
   const referenceNoInput = document.getElementById('reference-no');
+  const branchInput = document.getElementById('branch');
 
-  // Initialize a reference number from localStorage or start at 1000
+  // Initialize the reference number from localStorage or start at 1000
   let referenceNo = localStorage.getItem('referenceNo') ? parseInt(localStorage.getItem('referenceNo')) : 1000;
   referenceNoInput.value = referenceNo;
 
-  // Set the current date (formatted as needed)
-  const currentDate = new Date().toLocaleDateString();
-  dateTimeInput.value = currentDate;
+  // Set the current date and time, and ensure it is not editable
+  const currentDateTime = new Date().toLocaleString(); // Format as needed
+  dateTimeInput.value = currentDateTime;
+
+  // Preserve the branch name during form sessions until submission
+  const savedBranchName = localStorage.getItem('branchName');
+  if (savedBranchName) {
+    branchInput.value = savedBranchName;
+    branchInput.readOnly = true; // Make the branch name readonly after the first input
+  }
 
   // Handle form submission
   document.getElementById('data-form').addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const orderNo = document.getElementById('order-no').value;
-    const batterySerialNo = document.getElementById('battery-serial-no').value;
     const branch = document.getElementById('branch').value;
     const location = document.getElementById('location').value;
     const partNo = document.getElementById('part-no').value;
@@ -24,8 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const referenceNo = document.getElementById('reference-no').value;
 
     const data = {
-      orderNo,
-      batterySerialNo,
       branch,
       location,
       partNo,
@@ -48,8 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const result = await response.json();
     console.log(result);
 
-    // Increment reference number and update it in localStorage
+    // Increment reference number and update in localStorage
     referenceNoInput.value = ++referenceNo;
     localStorage.setItem('referenceNo', referenceNo);
+
+    // Save the branch name after the first submission, and make it readonly
+    localStorage.setItem('branchName', branch);
+    branchInput.readOnly = true; // Make branch input read-only after first entry
   });
 });
