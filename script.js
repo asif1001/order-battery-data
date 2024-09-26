@@ -139,4 +139,27 @@ document.addEventListener('DOMContentLoaded', () => {
     emailBody += '</tbody></table>';
 
     // Send email using EmailJS
-    const
+    const emailParams = {
+      to_email: 'your_email@example.com', // Replace with your actual email
+      message_html: emailBody // Pass the HTML table as the email content
+    };
+
+    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', emailParams)
+      .then((response) => {
+        console.log('Email sent successfully!', response.status, response.text);
+        // Display success message
+        successMessage.textContent = `Reference No: ${referenceNo} - Data sent to email`;
+      }, (error) => {
+        console.log('Failed to send email:', error);
+      });
+
+    // Reset form, temporary data, and reference number
+    tempDataArray = [];
+    renderTempDataTable(); // Clear the table
+    document.getElementById('location').value = '';
+    document.getElementById('part-no').value = '';
+    document.getElementById('qty').value = '';
+    referenceNoInput.value = generateReferenceNo();
+    dateTimeInput.value = new Date().toLocaleString();
+  });
+});
