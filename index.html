@@ -17,7 +17,7 @@
     <label for="reference-no">Reference No:</label>
     <input type="text" id="reference-no" name="reference-no" required readonly><br><br>
 
-    <!-- 3) Branch Name (One time manual entry, will remain the same until submit) -->
+    <!-- 3) Branch Name (One-time manual entry, will remain the same until submit) -->
     <label for="branch">Branch Name:</label>
     <input type="text" id="branch" name="branch" required><br><br>
 
@@ -33,6 +33,25 @@
     <label for="qty">Qty:</label>
     <input type="number" id="qty" name="qty" required><br><br>
 
+    <!-- Button to add entry to the temporary table -->
+    <button type="button" id="add-data-btn">Add Data</button>
+
+    <!-- Temporary data table -->
+    <h2>Temporary Data:</h2>
+    <table border="1" cellpadding="10" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+      <thead>
+        <tr>
+          <th>Location</th>
+          <th>Part No</th>
+          <th>Qty</th>
+        </tr>
+      </thead>
+      <tbody id="temp-data-table">
+        <!-- Dynamically added rows will appear here -->
+      </tbody>
+    </table><br>
+
+    <!-- Final submit button -->
     <button type="submit">Submit</button>
   </form>
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
