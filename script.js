@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const referenceNoInput = document.getElementById('reference-no');
   const branchInput = document.getElementById('branch');
   const tempDataTable = document.getElementById('temp-data-table');
+  const successMessage = document.getElementById('success-message');
   let tempDataArray = []; // Array to store the temporary data entries
 
   // Generate Reference No based on date+time (DDMMYYYYHHMM)
@@ -35,8 +36,16 @@ document.addEventListener('DOMContentLoaded', () => {
     emailjs.init('YOUR_USER_ID'); // Replace with your EmailJS user ID
   })();
 
+  // Listen for 'Enter' or 'Tab' key press on the 'Qty' field
+  document.getElementById('qty').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === 'Tab') {
+      event.preventDefault();
+      addDataToTemporaryStorage();
+    }
+  });
+
   // Function to add data to the temporary table
-  document.getElementById('add-data-btn').addEventListener('click', () => {
+  function addDataToTemporaryStorage() {
     const location = document.getElementById('location').value;
     const partNo = document.getElementById('part-no').value;
     const qty = document.getElementById('qty').value;
@@ -57,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Render the updated temporary data table
     renderTempDataTable();
-  });
+  }
 
   // Function to render the temporary data table
   function renderTempDataTable() {
@@ -130,25 +139,4 @@ document.addEventListener('DOMContentLoaded', () => {
     emailBody += '</tbody></table>';
 
     // Send email using EmailJS
-    const emailParams = {
-      to_email: 'your_email@example.com', // Replace with your actual email
-      message_html: emailBody // Pass the HTML table as the email content
-    };
-
-    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', emailParams)
-      .then((response) => {
-        console.log('Email sent successfully!', response.status, response.text);
-      }, (error) => {
-        console.log('Failed to send email:', error);
-      });
-
-    // Reset form, temporary data, and reference number
-    tempDataArray = [];
-    renderTempDataTable(); // Clear the table
-    document.getElementById('location').value = '';
-    document.getElementById('part-no').value = '';
-    document.getElementById('qty').value = '';
-    referenceNoInput.value = generateReferenceNo();
-    dateTimeInput.value = new Date().toLocaleString();
-  });
-});
+    const
