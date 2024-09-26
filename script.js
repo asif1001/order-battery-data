@@ -142,4 +142,13 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Failed to send email:', error);
       });
 
-    // Reset
+    // Reset form, temporary data, and reference number
+    tempDataArray = [];
+    renderTempDataTable(); // Clear the table
+    document.getElementById('location').value = '';
+    document.getElementById('part-no').value = '';
+    document.getElementById('qty').value = '';
+    referenceNoInput.value = generateReferenceNo();
+    dateTimeInput.value = new Date().toLocaleString();
+  });
+});
